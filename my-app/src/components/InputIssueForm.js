@@ -2,16 +2,25 @@ import React from 'react';
 
 export class InputIssueForm extends React.Component
 {
-
     constructor(props) {
         super(props);
+        this.state = {
+            value: ''
+        };
         this.handleSubmit = this.handleSubmit.bind(this);
+        this.handleChange = this.handleChange.bind(this);
+    }
+
+    handleChange(event) {
+        this.setState({
+            value: event.target.value
+        });
     }
 
     handleSubmit(e) {
         e.preventDefault();
         const data = {
-            message: document.getElementById('message').value,
+            message: this.state.value,
             author: this.props.author
         };
 
@@ -34,7 +43,9 @@ export class InputIssueForm extends React.Component
                     <legend>Send an issue</legend>
                     <p>
                         <label htmlFor='message'>Message text:</label>
-                        <textarea id='message' name='message' />
+                        <textarea id='message' name='message' 
+                        value={this.state.value}
+                        onChange={this.handleChange} />
                     </p>
 
                     <p>

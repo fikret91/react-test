@@ -15,25 +15,23 @@ class App extends React.Component
 
     this.handleLoginSubmit = this.handleLoginSubmit.bind(this);
     this.loadIssues = this.loadIssues.bind(this);
-
   }
 
   render() {
-    if (!this.state.author) {
+    const { author, issues } = this.state;
+    if (!author) {
       return <LoginForm handleLoginSubmit={this.handleLoginSubmit}/>
     } else {    
       return (<div>
-        <InputIssueForm author={this.state.author} loadIssues={this.loadIssues}/>
-        <IssuesList issues={this.state.issues}/>
+        <InputIssueForm author={author} loadIssues={this.loadIssues}/>
+        <IssuesList issues={issues}/>
       </div>
         );
     }
   }
 
-  handleLoginSubmit(e) {
+  handleLoginSubmit(e, author) {
     e.preventDefault();
-    //console.log(document.getElementById('author').value);
-    const author = document.getElementById('author').value;
     this.setState({author: author});
     
     this.loadIssues(author);
