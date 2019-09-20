@@ -11,8 +11,3 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
     monospace;
 }
-
-.issue {
-  border: 1px solid green;
-  margin-top: 2em;
-}

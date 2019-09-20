@@ -1,6 +1,8 @@
 import React from 'react';
+import { connect } from 'react-redux';
+import { postIssue } from '../redux/actions';
 
-export class InputIssueForm extends React.Component
+class InputIssueForm extends React.Component
 {
     constructor(props) {
         super(props);
@@ -17,42 +19,42 @@ export class InputIssueForm extends React.Component
         });
     }
 
-    handleSubmit(e) {
-        e.preventDefault();
+    handleSubmit(event) {
+        event.preventDefault();
+
         const data = {
             message: this.state.value,
             author: this.props.author
         };
 
-        fetch('https://localhost:44357/api/values', {
-            method: 'POST',
-            body: JSON.stringify(data),
-            headers: {
-                'Content-Type': 'application/json'
-            },
-        })
-        .then(data => {
-            this.props.loadIssues(this.props.author);
-        });
+        this.props.postIssue(data);
     }
 
     render() {
         return (
-            <form method='POST' onSubmit={this.handleSubmit}>
+            <form onSubmit={this.handleSubmit}>
                 <fieldset>
                     <legend>Send an issue</legend>
-                    <p>
+                    <div className='form-group'>
                         <label htmlFor='message'>Message text:</label>
-                        <textarea id='message' name='message' 
+                        <textarea id='message' name='message' className='form-control' 
                         value={this.state.value}
                         onChange={this.handleChange} />
-                    </p>
+                    </div>
 
-                    <p>
-                        <input type='submit' value='Report an issue' />
-                    </p>
+                    <div className='form-group'>
+                        <input type='submit' value='Report an issue' className='btn btn-primary'/>
+                    </div>
                 </fieldset>
             </form>
         );
     }
 }
+
+const mapStateToProps = state => {
+    return {
+      author: state.author
+    };
+};
+
+export default connect(mapStateToProps, { postIssue })(InputIssueForm);
