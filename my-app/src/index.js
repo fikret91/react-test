@@ -8,13 +8,28 @@ import { createStore, applyMiddleware } from 'redux';
 import appReducer from './redux/reducers';
 import { Provider } from 'react-redux';
 import thunkMiddleware from 'redux-thunk';
+import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
+import LoginForm from './components/LoginForm';
+import InputIssueForm from './components/InputIssueForm';
+import IssuesList from './components/IssuesList';
 
 
 const store = createStore(appReducer, applyMiddleware(thunkMiddleware));
 
 ReactDOM.render(
     <Provider store={store}>
-        <App />
+        <Router>
+            <Switch>
+                <Route exact path='/' component={App} />
+                <Route path='/login' component={LoginForm} />
+                <Route path='/issues' render={() => 
+                    <div>
+                        <InputIssueForm />
+                        <IssuesList />
+                    </div>
+                } />
+            </Switch>
+        </Router>
     </Provider>, 
     document.getElementById('root')
 );

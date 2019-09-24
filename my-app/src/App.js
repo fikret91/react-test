@@ -1,20 +1,16 @@
+import 'devextreme/dist/css/dx.common.css';
+import 'devextreme/dist/css/dx.light.css';
 import React from 'react';
-import LoginForm from './components/LoginForm';
-import InputIssueForm from './components/InputIssueForm';
-import IssuesList from './components/IssuesList';
 import { connect } from "react-redux";
+import { Redirect } from 'react-router-dom';
 
 class App extends React.Component
 {
     render() {
       if (!this.props.author) {
-        return <LoginForm />
-      } else {    
-        return (<div>
-          <InputIssueForm />
-          <IssuesList />
-        </div>
-          );
+        return <Redirect to='/login' />;
+      } else {
+        return <Redirect to='/issues' />;
       }
     }  
 }

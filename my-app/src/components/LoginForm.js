@@ -1,6 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { setAuthor, getIssues } from '../redux/actions';
+import { Redirect } from 'react-router-dom';
 
 class LoginForm extends React.Component
 {
@@ -21,10 +22,13 @@ class LoginForm extends React.Component
     handleLoginSubmit(event) {
         event.preventDefault();
         this.props.setAuthor(this.state.author);
-        this.props.getIssues(this.state.author);
+        this.props.getIssues(this.state.author);        
     }
 
     render() {
+        if (this.props.author)
+            return <Redirect to='/' />;
+
         return (
             <form onSubmit={this.handleLoginSubmit}>
                 <fieldset>
@@ -45,4 +49,10 @@ class LoginForm extends React.Component
     }
 }
 
-export default connect(null, { setAuthor, getIssues })(LoginForm);
+const mapStateToProps = state => {
+    return {
+      author: state.author
+    };
+  };
+
+export default connect(mapStateToProps, { setAuthor, getIssues })(LoginForm);

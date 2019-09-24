@@ -7,7 +7,7 @@ class InputIssueForm extends React.Component
     constructor(props) {
         super(props);
         this.state = {
-            value: ''
+            message: ''
         };
         this.handleSubmit = this.handleSubmit.bind(this);
         this.handleChange = this.handleChange.bind(this);
@@ -15,7 +15,7 @@ class InputIssueForm extends React.Component
 
     handleChange(event) {
         this.setState({
-            value: event.target.value
+            message: event.target.value
         });
     }
 
@@ -23,7 +23,7 @@ class InputIssueForm extends React.Component
         event.preventDefault();
 
         const data = {
-            message: this.state.value,
+            message: this.state.message,
             author: this.props.author
         };
 
@@ -38,7 +38,7 @@ class InputIssueForm extends React.Component
                     <div className='form-group'>
                         <label htmlFor='message'>Message text:</label>
                         <textarea id='message' name='message' className='form-control' 
-                        value={this.state.value}
+                        value={this.state.message}
                         onChange={this.handleChange} />
                     </div>
 
